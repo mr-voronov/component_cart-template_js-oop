@@ -1,5 +1,3 @@
-// https://youtu.be/bNK80YG_FiM?t=588
-
 class Cart {
     constructor(
         dataFromBack,
@@ -17,6 +15,22 @@ class Cart {
         this.btnDecreaseClass = btnDecreaseClass,
         this.btnRemoveClass = btnRemoveClass,
         this.currency = currency;
+    }
+
+    deleteItem(articul) {
+        delete this.itemsInStore[articul];
+    }
+
+    decreaseQuantity(articul) {
+        if (this.itemsInStore[articul] - 1 == 0) {
+            this.deleteItem(articul);
+        } else {
+            this.itemsInStore[articul]--;
+        }
+    }
+
+    increaseQuantity(articul) {
+        this.itemsInStore[articul]++;
     }
 
     render() {
@@ -111,7 +125,7 @@ class Cart {
 
                 const sumForOneItem = this.dataFromBack[article]['price'] * this.itemsInStore[article];
 
-                p.textContent = sumForOneItem;
+                p.textContent = `${sumForOneItem} ${this.currency}`;
                 sumTotal += sumForOneItem;
 
                 td.append(p);
@@ -137,7 +151,8 @@ class Cart {
             const tr = document.createElement('tr');
             const td = document.createElement('td');
 
-            td.textContent = sumTotal;
+            td.setAttribute('colspan', 7);
+            td.textContent = `Total: ${sumTotal} ${this.currency}`;
             tr.append(td);
             table.append(tr);
         }

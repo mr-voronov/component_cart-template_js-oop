@@ -1,3 +1,13 @@
 img {
     width: 50px;
 }
+
+table, tr, th, td {
+    border: 1px solid grey;
+    border-collapse: collapse;
+}
+
+td,
+th {
+    padding: 10px;
+}
