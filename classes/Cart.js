@@ -1,3 +1,5 @@
+// https://youtu.be/bNK80YG_FiM?t=588
+
 class Cart {
     constructor(
         dataFromBack,
@@ -18,15 +20,14 @@ class Cart {
     }
 
     render() {
-        console.log('this: ', this);
-
-        
-        // creating table and adding classes to it
+        // creating table and total sum
         const table = document.createElement('table');
+        let sumTotal = 0;
 
+        // adding classes
         table.classList.add(this.cartClass);
 
-        // looping over all the items in local storage
+        // forming rows with items from local storage
         for (const article in this.itemsInStore) {
             const tr = document.createElement('tr');  
 
@@ -103,20 +104,20 @@ class Cart {
                 return td;
             }
 
+            // forming sum for one item and adding it to total sum
             const sum = () => {
                 const td = document.createElement('td');
                 const p = document.createElement('p');
 
-                p.textContent = this.dataFromBack[article]['price'] * this.itemsInStore[article];
+                const sumForOneItem = this.dataFromBack[article]['price'] * this.itemsInStore[article];
+
+                p.textContent = sumForOneItem;
+                sumTotal += sumForOneItem;
 
                 td.append(p);
 
                 return td;
             }
-
-
-            // https://youtu.be/bNK80YG_FiM?t=588
-
 
             // forming table row
             tr.append( btnDelete() );
@@ -131,7 +132,19 @@ class Cart {
             table.append(tr);
         }
 
+        // forming row with total sum
+        const addTotalSum = () => {
+            const tr = document.createElement('tr');
+            const td = document.createElement('td');
 
+            td.textContent = sumTotal;
+            tr.append(td);
+            table.append(tr);
+        }
+
+        addTotalSum();
+
+        // render of table
         document.querySelector('#cart').append(table);
     }    
 }
