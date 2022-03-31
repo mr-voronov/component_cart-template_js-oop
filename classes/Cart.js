@@ -160,6 +160,7 @@ class Cart {
         addTotalSum();
 
         // render of table
-        document.querySelector('#cart').append(table);
+        // document.querySelector('#cart').append(table);
+        return table;
     }    
 }
